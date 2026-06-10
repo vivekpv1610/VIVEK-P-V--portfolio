@@ -56,7 +56,7 @@ export default function Home() {
       company: "Inloops Innovations, Kochi",
       period: "10 / 2024 - Present",
       description:
-        "Built scalable backend systems using Java and Spring Boot. Designed RESTful APIs and implemented Spring Security for secure authentication and role-based access control. Worked with SQL (MySQL, PostgreSQL) and NoSQL (MongoDB) databases.",
+        "Built scalable backend systems using Java and Spring Boot. Designed RESTful APIs and implemented Spring Security for secure authentication and role-based access control. Managed robust CI/CD pipelines and streamlined deployments on internal servers using Docker and Dokploy.",
     },
     {
       role: "Software Developer Intern",
@@ -184,8 +184,8 @@ export default function Home() {
               </p>
               <p className="text-slate-300 text-lg leading-relaxed">
                 With a strong foundation in Java, Spring Boot, and database management, I'm passionate about developing
-                intelligent solutions for real-world challenges. I have hands-on experience with both SQL and NoSQL
-                databases, and I'm always exploring emerging technologies like AI/ML.
+                intelligent solutions for real-world challenges. I also have practical DevOps experience, utilizing Docker
+                and Dokploy to establish efficient CI/CD pipelines that streamline application delivery.
               </p>
             </div>
             <div className="grid grid-cols-2 gap-4">
