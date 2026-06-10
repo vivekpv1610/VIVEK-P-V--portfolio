@@ -8,71 +8,62 @@ export default function Home() {
 
   const projects = [
     {
-      title: "ABC Bank - Online Banking System",
+      title: "CloudEagle.ai - Backend Developer",
       description:
-        "Web-based banking system providing secure user authentication, transaction management, and role-based access control with Spring Security and email notifications.",
-      tech: ["Spring Boot", "Hibernate", "Thymeleaf", "Spring Security", "MySQL"],
-      link: "https://github.com/VIVEK-P-V",
+        "A SaaS management and procurement platform that helps businesses discover, manage, and optimize their software applications and spending. Developed scalable backend microservices and optimized complex database queries.",
+      tech: ["Java", "Spring Boot", "MySQL", "REST APIs", "Microservices"],
+      link: "https://www.cloudeagle.ai/",
       icon: Server,
     },
     {
-      title: "Hospital Management System",
+      title: "nseek - Local SEO & Directory Audit Tool",
       description:
-        "Comprehensive hospital management system designed to manage patient records, staff details, and medical inventory with full CRUD operations.",
-      tech: ["Spring Boot", "Hibernate", "MySQL", "PostgreSQL", "Spring Web MVC"],
-      link: "https://github.com/VIVEK-P-V",
-      icon: Database,
-    },
-    {
-      title: "Product Management System - ProductApp",
-      description:
-        "Spring Boot-based product management system for managing inventory, product details, and transactions with responsive MVC architecture.",
-      tech: ["Spring Boot", "Hibernate", "JSP", "Bootstrap", "MySQL"],
-      link: "https://github.com/VIVEK-P-V",
-      icon: Database,
-    },
-    {
-      title: "Student Management System",
-      description:
-        "Simple yet effective student management system enabling CRUD operations on student records with console-based interface.",
-      tech: ["Java", "JDBC", "MySQL 8.0.28"],
-      link: "https://github.com/VIVEK-P-V",
+        "A comprehensive local SEO application to help businesses automate NAP consistency audits. Engineered a scalable web scraper using Playwright and built an interactive analytics dashboard.",
+      tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL", "Playwright"],
+      link: "https://app.nseek.in/",
       icon: Code2,
     },
     {
-      title: "AI-Powered Automated Penetration Testing Tool",
+      title: "LabBase - Enterprise SaaS Platform",
       description:
-        "AI-driven penetration testing tool that automates vulnerability detection in network traffic with real-time assessment via Flask web interface.",
-      tech: ["Python", "Flask", "PyTorch", "Machine Learning", "JavaScript"],
-      link: "https://github.com/VIVEK-P-V",
-      icon: Code2,
+        "A scalable multi-application SaaS platform utilizing an Nx monorepo architecture. Built responsive UIs and developed RESTful backend services with observability using OpenTelemetry.",
+      tech: ["React", "Vue", "Node.js", "Express", "MongoDB", "Nx"],
+      link: "https://dev.labbase.in/",
+      icon: Database,
+    },
+    {
+      title: "Identity as a Service (IDaaS) Platform & Java SDK",
+      description:
+        "A comprehensive IDaaS platform to handle scalable user authentication, tenant administration, and subscription management. Developed a production-ready Java SDK and secure authentication handling.",
+      tech: ["Java 11+", "Node.js", "Fastify", "Drizzle ORM", "Redis", "JWT"],
+      icon: Server,
     },
   ]
 
   const skills = [
-    { category: "Backend", items: ["Java 17+", "Spring Boot", "Hibernate ORM", "Spring Security", "JPA"] },
-    { category: "Databases", items: ["MySQL 8.0.28", "PostgreSQL", "MongoDB", "JDBC", "Oracle 10g+"] },
+    { category: "Languages & Frameworks", items: ["Java 8+", "JavaScript", "Spring Boot", "Hibernate ORM", "Spring IoC", "Spring MVC"] },
+    { category: "Web & API Technologies", items: ["HTML5", "CSS3", "REST APIs", "React", "Next.js", "Node.js"] },
+    { category: "Databases", items: ["MySQL 8.0.28", "PostgreSQL", "Oracle 10g+", "MongoDB", "Redis"] },
     {
-      category: "Tools & Technologies",
-      items: ["IntelliJ IDEA", "Eclipse", "Maven", "Git", "GitHub", "Postman", "Swagger", "Jenkins"],
+      category: "Tools & DevOps",
+      items: ["IntelliJ IDEA", "Eclipse", "Git", "Postman", "Swagger", "Docker", "Dokploy", "CI/CD pipelines"],
     },
-    { category: "Web Technologies", items: ["HTML5", "CSS3", "JavaScript", "REST APIs", "JSP", "Thymeleaf"] },
   ]
 
   const experience = [
     {
       role: "Java Backend Developer",
-      company: "Inloops Innovations, Palakkad",
+      company: "Inloops Innovations, Kochi",
       period: "10 / 2024 - Present",
       description:
         "Built scalable backend systems using Java and Spring Boot. Designed RESTful APIs and implemented Spring Security for secure authentication and role-based access control. Worked with SQL (MySQL, PostgreSQL) and NoSQL (MongoDB) databases.",
     },
     {
       role: "Software Developer Intern",
-      company: "JSpiders, Test Yantra Software Solutions India Pvt Ltd, Kochi",
+      company: "JSpiders, a unit of Test Yantra Software Solutions India Pvt Ltd, Kochi",
       period: "06 / 2024 - 02 / 2025",
       description:
-        "Developed backend systems using Java, Spring Boot, and Hibernate. Designed and implemented RESTful APIs tested with Postman. Optimized Hibernate ORM queries for improved database efficiency.",
+        "Developed backend systems using Java, Spring Boot, and Hibernate. Designed and implemented RESTful APIs tested with Postman. Optimized Hibernate ORM queries for improved database efficiency for MySQL/PostgreSQL.",
     },
   ]
 
@@ -278,14 +269,16 @@ export default function Home() {
                       </span>
                     ))}
                   </div>
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-cyan-400 hover:text-cyan-300 font-semibold text-sm md:text-base"
-                  >
-                    View Project <ExternalLink className="w-4 h-4 ml-2" />
-                  </a>
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-cyan-400 hover:text-cyan-300 font-semibold text-sm md:text-base"
+                    >
+                      View Project <ExternalLink className="w-4 h-4 ml-2" />
+                    </a>
+                  )}
                 </div>
               )
             })}
