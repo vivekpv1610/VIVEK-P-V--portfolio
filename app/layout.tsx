@@ -8,9 +8,9 @@ const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains" })
 
 export const metadata: Metadata = {
-  title: "Vivek P V — Java Backend Developer",
+  title: "Vivek P V — Java Full Stack Developer",
   description:
-    "Portfolio of Vivek P V, a Java backend developer in Kochi building scalable services with Spring Boot, REST APIs, and solid DevOps.",
+    "Portfolio of Vivek P V, a Java full stack developer in Kochi building scalable web apps with Spring Boot, React, Next.js and solid DevOps.",
   icons: {
     icon: [
       {

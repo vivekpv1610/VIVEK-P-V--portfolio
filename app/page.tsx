@@ -307,7 +307,7 @@ function Hero() {
             className="reveal max-w-[16ch] text-[clamp(2.5rem,6vw,4.25rem)] font-extrabold leading-[1.04] tracking-[-0.035em]"
             style={{ transitionDelay: "60ms" }}
           >
-            I build backends that <span className="text-accent">just work.</span>
+            I build full-stack apps that <span className="text-accent">just work.</span>
           </h1>
           <p
             className="reveal mt-5 max-w-[54ch] text-base leading-relaxed text-ink-2 sm:mt-6 sm:text-lg"
