@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, type CSSProperties, type ReactNode } from "react"
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react"
 import {
   Activity,
   ArrowDown,
@@ -56,7 +56,7 @@ const projects: Project[] = [
     did: [
       { lead: "Scalable backend microservices", rest: " in Java and Spring Boot." },
       { lead: "Optimized complex database queries", rest: " on MySQL for faster, leaner reads." },
-      { lead: "REST APIs", rest: " powering the platform's core workflows." },
+      { lead: "Integrated third-party SaaS APIs", rest: " for seamless data synchronization." },
     ],
     stack: ["Java", "Spring Boot", "MySQL", "REST APIs", "Microservices"],
     link: { href: "https://www.cloudeagle.ai/", label: "cloudeagle.ai" },
@@ -73,11 +73,11 @@ const projects: Project[] = [
     description:
       "A comprehensive local SEO application that helps businesses automate NAP (name, address, phone) consistency audits across directories.",
     did: [
-      { lead: "Scalable web scraper", rest: " engineered with Playwright." },
-      { lead: "Interactive analytics dashboard", rest: " in Next.js and React." },
+      { lead: "Scalable web scraper", rest: " using Playwright to drive headless Chromium and extract structured data." },
+      { lead: "Real-time analytics dashboard", rest: " built with React, Radix UI and Tailwind CSS." },
       { lead: "Automated NAP consistency audits", rest: " backed by PostgreSQL." },
     ],
-    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL", "Playwright"],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Playwright"],
     link: { href: "https://nseek.in/", label: "nseek.in" },
     tint: "#E7F4EC",
     tintInk: "#1F6B3F",
@@ -93,10 +93,10 @@ const projects: Project[] = [
       "A scalable multi-application SaaS platform built on an Nx monorepo architecture, with shared libraries across frontends and services.",
     did: [
       { lead: "Nx monorepo architecture", rest: " for multiple apps sharing code." },
-      { lead: "Responsive UIs", rest: " in React and Vue." },
+      { lead: "Responsive UIs", rest: " in React, Vue and Tailwind CSS." },
       { lead: "RESTful backend services", rest: " in Node.js and Express with OpenTelemetry observability." },
     ],
-    stack: ["React", "Vue", "Node.js", "Express", "MongoDB", "Nx", "OpenTelemetry"],
+    stack: ["React", "Vue", "Tailwind CSS", "Node.js", "Express", "MongoDB", "Nx", "OpenTelemetry"],
     link: { href: "https://labbase.in/", label: "labbase.in" },
     tint: "#E9EFFB",
     tintInk: "#2B4FA8",
@@ -109,13 +109,13 @@ const projects: Project[] = [
     tagline: "Identity as a service, with a Java SDK.",
     tags: [{ label: "Private" }, { label: "Backend" }, { label: "SDK" }],
     description:
-      "A comprehensive identity platform handling scalable user authentication, tenant administration, and subscription management.",
+      "A Node.js monorepo with Fastify, Drizzle ORM and Redis handling scalable user authentication, tenant administration, and subscription management.",
     did: [
       { lead: "Production-ready Java SDK", rest: " so client apps integrate in a few lines." },
-      { lead: "Secure authentication", rest: " with JWT and Redis-backed sessions." },
-      { lead: "Tenant & subscription management", rest: " on Fastify with Drizzle ORM." },
+      { lead: "Secure authentication & authorization", rest: " in the SDK using nimbus-jose-jwt." },
+      { lead: "Admin API client & webhook handler", rest: " built with Java HttpClient and Jackson." },
     ],
-    stack: ["Java 11+", "Node.js", "Fastify", "Drizzle ORM", "Redis", "JWT"],
+    stack: ["Java 11+", "Maven", "Node.js", "Fastify", "Drizzle ORM", "Redis", "JWT"],
     tint: "#FDECEA",
     tintInk: "#A8362A",
     visual: "sdk",
@@ -131,7 +131,7 @@ const experience = [
     current: true,
     summary: "Spring Boot services, server setup & management, and Docker/Dokploy CI/CD.",
     description:
-      "Built scalable backend systems using Java and Spring Boot. Designed RESTful APIs and implemented Spring Security for secure authentication and role-based access control. Set up and manage the company's servers, run CI/CD pipelines, and streamline deployments using Docker and Dokploy.",
+      "Built scalable, modular backend systems using Java and Spring Boot. Designed RESTful APIs and integrated them with frontends and third-party services, working across MySQL, PostgreSQL and MongoDB. Implemented Spring Security for authentication and role-based access control. Set up and manage the company's servers, deploying and configuring open-source projects and running CI/CD pipelines with Docker and Dokploy.",
   },
   {
     period: "Jun 2024 — Feb 2025",
@@ -140,16 +140,29 @@ const experience = [
     current: false,
     summary: "Java, Spring Boot, and Hibernate backends.",
     description:
-      "Developed backend systems using Java, Spring Boot, and Hibernate. Designed and implemented RESTful APIs tested with Postman. Optimized Hibernate ORM queries for improved database efficiency for MySQL/PostgreSQL.",
+      "Developed backend systems using Java, Spring Boot, and Hibernate, and designed RESTful APIs tested with Postman. Built responsive web interfaces with HTML5, CSS3 and JavaScript. Optimized Hibernate ORM queries for MySQL/PostgreSQL and assisted with secure database setup and configuration.",
+  },
+]
+
+const education = [
+  {
+    period: "2024 — 2026",
+    degree: "M.Tech, Computer Science & Engineering",
+    school: "Government Engineering College, Thrissur",
+  },
+  {
+    period: "2020 — 2024",
+    degree: "B.Tech, Computer Science & Engineering",
+    school: "Ahalia School of Engineering and Technology, Palakkad",
   },
 ]
 
 const skills = [
-  { category: "Languages & Frameworks", items: ["Java 8+", "JavaScript", "Spring Boot", "Hibernate ORM", "Spring IoC", "Spring MVC"] },
-  { category: "Web & APIs", items: ["HTML5", "CSS3", "REST APIs", "React", "Next.js", "Node.js"] },
-  { category: "Databases", items: ["MySQL 8.0.28", "PostgreSQL", "Oracle 10g+", "MongoDB", "Redis"] },
-  { category: "Servers & DevOps", items: ["Docker", "Dokploy", "CI/CD pipelines", "Server setup", "Server management", "Git"] },
-  { category: "Tools", items: ["IntelliJ IDEA", "Eclipse", "Postman", "Swagger"] },
+  { category: "Languages & Frameworks", items: ["Java 8+", "JavaScript", "TypeScript", "Spring Boot", "Spring MVC", "Spring IoC", "Hibernate ORM"] },
+  { category: "Web & APIs", items: ["REST APIs", "Spring REST", "React", "Next.js", "Node.js", "Tailwind CSS", "HTML5", "CSS3"] },
+  { category: "Databases", items: ["MySQL", "PostgreSQL", "Oracle 10g+", "MongoDB", "Redis", "SQL", "JDBC"] },
+  { category: "Servers & DevOps", items: ["Docker", "Dokploy", "CI/CD pipelines", "Server setup", "Server administration", "Git & GitHub"] },
+  { category: "Tools", items: ["IntelliJ IDEA", "Eclipse", "Maven", "Postman", "Swagger", "MySQL Workbench", "n8n"] },
 ]
 
 export default function Home() {
@@ -240,9 +253,7 @@ function Header() {
     >
       <Wrap className="flex h-16 items-center justify-between">
         <a href="#top" className="flex items-center gap-2.5 text-[15px] font-bold tracking-tight">
-          <span className="grid size-8 place-items-center rounded-full bg-foreground text-xs font-extrabold text-background">
-            VP
-          </span>
+          <Avatar />
           Vivek P V
         </a>
 
@@ -293,6 +304,38 @@ function Header() {
         </Wrap>
       )}
     </header>
+  )
+}
+
+// Shows /profile.jpg when present, falls back to initials otherwise.
+function Avatar() {
+  const [failed, setFailed] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  // The image can fail before hydration, when onError isn't attached yet.
+  useEffect(() => {
+    const img = imgRef.current
+    if (img && img.complete && img.naturalWidth === 0) setFailed(true)
+  }, [])
+
+  if (failed) {
+    return (
+      <span className="grid size-8 place-items-center rounded-full bg-foreground text-xs font-extrabold text-background">
+        VP
+      </span>
+    )
+  }
+
+  return (
+    <img
+      ref={imgRef}
+      src="/profile.jpg"
+      alt="Vivek P V"
+      width={32}
+      height={32}
+      onError={() => setFailed(true)}
+      className="size-8 rounded-full object-cover ring-2 ring-white shadow-soft"
+    />
   )
 }
 
@@ -936,7 +979,7 @@ function Experience() {
               key={job.role}
               className="reveal grid gap-1.5 border-b py-7 md:grid-cols-[200px_1fr] md:gap-8 md:py-9"
             >
-              <p className="flex items-center gap-2 pt-0.5 text-sm font-medium text-muted-foreground">
+              <p className="flex items-center gap-2 self-start pt-0.5 text-sm font-medium text-muted-foreground">
                 {job.period}
                 {job.current && (
                   <span className="rounded-full bg-ok-soft px-2 py-0.5 text-[11px] font-bold text-ok md:hidden">Now</span>
@@ -959,6 +1002,21 @@ function Experience() {
             </li>
           ))}
         </ol>
+
+        <div id="education" className="reveal mt-16 md:mt-20">
+          <Eyebrow>Education</Eyebrow>
+          <ol className="mt-6 border-t">
+            {education.map((e) => (
+              <li key={e.degree} className="grid gap-1.5 border-b py-6 md:grid-cols-[200px_1fr] md:gap-8">
+                <p className="pt-0.5 text-sm font-medium text-muted-foreground">{e.period}</p>
+                <div>
+                  <h3 className="text-lg font-bold tracking-tight">{e.degree}</h3>
+                  <p className="text-sm text-muted-foreground md:text-base">{e.school}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </Wrap>
     </section>
   )
