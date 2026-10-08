@@ -78,11 +78,11 @@ const projects: Project[] = [
       { lead: "Automated NAP consistency audits", rest: " backed by PostgreSQL." },
     ],
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL", "Playwright"],
-    link: { href: "https://app.nseek.in/", label: "app.nseek.in" },
+    link: { href: "https://nseek.in/", label: "nseek.in" },
     tint: "#E7F4EC",
     tintInk: "#1F6B3F",
     visual: "audit",
-    caption: "app.nseek.in",
+    caption: "nseek.in",
   },
   {
     name: "LabBase",
@@ -97,11 +97,11 @@ const projects: Project[] = [
       { lead: "RESTful backend services", rest: " in Node.js and Express with OpenTelemetry observability." },
     ],
     stack: ["React", "Vue", "Node.js", "Express", "MongoDB", "Nx", "OpenTelemetry"],
-    link: { href: "https://dev.labbase.in/", label: "labbase.in" },
+    link: { href: "https://labbase.in/", label: "labbase.in" },
     tint: "#E9EFFB",
     tintInk: "#2B4FA8",
     visual: "monorepo",
-    caption: "dev.labbase.in",
+    caption: "labbase.in",
   },
   {
     name: "IDaaS Platform & Java SDK",
@@ -301,7 +301,7 @@ function Header() {
 function Hero() {
   return (
     <section id="top">
-      <Wrap className="grid items-center gap-12 pb-20 pt-14 md:grid-cols-[1fr_auto] md:pb-28 md:pt-24">
+      <Wrap className="grid items-center gap-12 pb-16 pt-12 md:grid-cols-[1fr_auto] md:pb-28 md:pt-24">
         <div>
           <h1
             className="reveal max-w-[16ch] text-[clamp(2.5rem,6vw,4.25rem)] font-extrabold leading-[1.04] tracking-[-0.035em]"
@@ -310,13 +310,20 @@ function Hero() {
             I build backends that <span className="text-accent">just work.</span>
           </h1>
           <p
-            className="reveal mt-6 max-w-[54ch] text-lg leading-relaxed text-ink-2"
+            className="reveal mt-5 max-w-[54ch] text-base leading-relaxed text-ink-2 sm:mt-6 sm:text-lg"
             style={{ transitionDelay: "120ms" }}
           >
             Java full stack developer. <strong className="text-foreground">Four products shipped</strong> across SaaS,
-            SEO and identity. I care about the parts users never see — the API that answers fast, the auth that just
-            holds, and <strong className="text-foreground">the servers it all runs on</strong>, deployed with Docker,
-            Dokploy and CI/CD.
+            SEO and identity
+            <span className="hidden sm:inline">
+              . I care about the parts users never see — the API that answers fast, the auth that just holds, and{" "}
+              <strong className="text-foreground">the servers it all runs on</strong>, deployed with Docker, Dokploy
+              and CI/CD.
+            </span>
+            <span className="sm:hidden">
+              {" "}
+              — plus <strong className="text-foreground">the servers they run on</strong>.
+            </span>
           </p>
           <div className="reveal mt-8 flex flex-wrap items-center gap-2.5" style={{ transitionDelay: "180ms" }}>
             <a href="#work" className={`${btn} bg-accent text-white shadow-[0_8px_20px_-8px_var(--accent)] hover:bg-accent-ink`}>
@@ -325,7 +332,7 @@ function Hero() {
             <a href="#contact" className={`${btn} border border-line-strong bg-card hover:border-foreground`}>
               Say hello
             </a>
-            <span className="flex">
+            <span className="hidden sm:flex">
               <IconLink href={GITHUB} label="GitHub">
                 <Github size={18} />
               </IconLink>
@@ -358,7 +365,7 @@ function IconLink({ href, label, children }: { href: string; label: string; chil
 
 function ShippedCard() {
   return (
-    <div className="reveal w-full md:w-[340px]" style={{ transitionDelay: "240ms" }}>
+    <div className="reveal hidden w-[340px] md:block" style={{ transitionDelay: "240ms" }}>
       <div className="mb-3 flex items-center justify-between px-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
         <span>Shipped</span>
         <span className="inline-flex items-center gap-1.5 normal-case tracking-normal">
@@ -423,7 +430,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
       className="reveal group grid overflow-hidden rounded-[28px] border bg-card shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-lift lg:grid-cols-2"
     >
       {/* Text side */}
-      <div className={`flex flex-col p-7 sm:p-10 lg:p-12 ${flip ? "lg:order-2" : ""}`}>
+      <div className={`flex flex-col p-6 sm:p-10 lg:p-12 ${flip ? "lg:order-2" : ""}`}>
         <div className="flex items-center gap-3 text-xs font-semibold">
           <span className="font-mono text-muted-foreground">{String(index + 1).padStart(2, "0")}</span>
           <span className="h-px w-6 bg-border" />
@@ -438,15 +445,15 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
           </span>
         </div>
 
-        <h3 className="mt-6 text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold leading-tight tracking-[-0.03em]">
+        <h3 className="mt-4 text-[clamp(1.6rem,3vw,2.25rem)] font-extrabold leading-tight tracking-[-0.03em] sm:mt-6">
           {p.name}
         </h3>
         <p className="mt-1 text-[15px] font-medium" style={{ color: p.tintInk }}>
           {p.tagline}
         </p>
-        <p className="mt-4 leading-relaxed text-ink-2">{p.description}</p>
+        <p className="mt-4 hidden leading-relaxed text-ink-2 sm:block">{p.description}</p>
 
-        <ul className="mt-6 space-y-3 border-t pt-6">
+        <ul className="mt-5 space-y-3 border-t pt-5 sm:mt-6 sm:pt-6">
           {p.did.map((d) => (
             <li key={d.lead} className="flex gap-3 text-[15px] leading-snug text-ink-2">
               <span
@@ -481,7 +488,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
 
       {/* Visual side */}
       <div
-        className={`relative min-h-[300px] overflow-hidden sm:min-h-[380px] ${flip ? "lg:order-1" : ""}`}
+        className={`relative order-first h-[210px] overflow-hidden sm:h-auto sm:min-h-[380px] ${flip ? "lg:order-1" : "lg:order-none"}`}
         style={{ background: `radial-gradient(circle at ${flip ? "85%" : "15%"} 0%, rgba(255,255,255,0.7), transparent 55%), ${p.tint}` }}
       >
         <div
@@ -493,7 +500,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
           }}
         />
         <div
-          className={`absolute bottom-0 top-10 w-[92%] transition-transform duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:-translate-y-2 sm:top-14 ${
+          className={`absolute bottom-0 top-6 w-[92%] transition-transform duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:-translate-y-2 sm:top-14 ${
             flip ? "left-0 sm:-left-2" : "right-0 sm:-right-2"
           }`}
         >
@@ -889,18 +896,18 @@ function Infra() {
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             {infraSkills.map(({ icon: Icon, title, text }, i) => (
               <div
                 key={title}
-                className="reveal group rounded-[24px] border bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift"
+                className="reveal group rounded-[20px] border bg-card p-4 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift sm:rounded-[24px] sm:p-6"
                 style={{ transitionDelay: `${i * 60}ms` }}
               >
-                <span className="grid size-11 place-items-center rounded-2xl bg-accent-soft text-accent transition-transform duration-300 group-hover:rotate-[-6deg] group-hover:scale-110">
-                  <Icon size={20} />
+                <span className="grid size-9 place-items-center rounded-xl bg-accent-soft text-accent transition-transform duration-300 group-hover:rotate-[-6deg] group-hover:scale-110 sm:size-11 sm:rounded-2xl">
+                  <Icon size={18} />
                 </span>
-                <h3 className="mt-5 text-lg font-bold tracking-tight">{title}</h3>
-                <p className="mt-1.5 text-[15px] leading-relaxed text-ink-2">{text}</p>
+                <h3 className="mt-4 text-[15px] font-bold tracking-tight sm:mt-5 sm:text-lg">{title}</h3>
+                <p className="mt-1 hidden text-[15px] leading-relaxed text-ink-2 sm:block">{text}</p>
               </div>
             ))}
           </div>
@@ -927,19 +934,27 @@ function Experience() {
           {experience.map((job) => (
             <li
               key={job.role}
-              className="reveal grid gap-2 border-b py-7 md:grid-cols-[200px_1fr] md:gap-8 md:py-9"
+              className="reveal grid gap-1.5 border-b py-7 md:grid-cols-[200px_1fr] md:gap-8 md:py-9"
             >
-              <p className="pt-0.5 text-sm font-medium text-muted-foreground">{job.period}</p>
+              <p className="flex items-center gap-2 pt-0.5 text-sm font-medium text-muted-foreground">
+                {job.period}
+                {job.current && (
+                  <span className="rounded-full bg-ok-soft px-2 py-0.5 text-[11px] font-bold text-ok md:hidden">Now</span>
+                )}
+              </p>
               <div>
-                <h3 className="flex flex-wrap items-center gap-x-2 gap-y-1 text-lg font-bold tracking-tight">
+                <h3 className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-lg font-bold tracking-tight">
                   {job.role}
-                  <span className="font-medium text-muted-foreground">· {job.company}</span>
+                  <span className="hidden font-medium text-muted-foreground md:inline">· {job.company}</span>
                   {job.current && (
-                    <span className="rounded-full bg-ok-soft px-2 py-0.5 text-[11px] font-bold text-ok">Now</span>
+                    <span className="hidden rounded-full bg-ok-soft px-2 py-0.5 text-[11px] font-bold text-ok md:inline">
+                      Now
+                    </span>
                   )}
                 </h3>
-                <p className="mt-2 font-semibold text-foreground">{job.summary}</p>
-                <p className="mt-2 max-w-[68ch] leading-relaxed text-ink-2">{job.description}</p>
+                <p className="text-sm text-muted-foreground md:hidden">{job.company}</p>
+                <p className="mt-3 font-semibold text-foreground md:mt-2">{job.summary}</p>
+                <p className="mt-2 hidden max-w-[68ch] leading-relaxed text-ink-2 md:block">{job.description}</p>
               </div>
             </li>
           ))}
@@ -965,15 +980,11 @@ function Toolbox() {
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {skills.map((group, i) => (
-            <div
-              key={group.category}
-              className="reveal rounded-[var(--radius)] border bg-card p-6 shadow-soft"
-              style={{ transitionDelay: `${i * 60}ms` }}
-            >
+        <div className="reveal grid gap-px overflow-hidden rounded-[var(--radius)] border bg-border shadow-soft sm:grid-cols-2 lg:grid-cols-5">
+          {skills.map((group) => (
+            <div key={group.category} className="bg-card p-5 sm:p-6">
               <h3 className="text-sm font-bold">{group.category}</h3>
-              <div className="mt-4 flex flex-wrap gap-1.5">
+              <div className="mt-3 flex flex-wrap gap-1.5 sm:mt-4">
                 {group.items.map((s) => (
                   <span key={s} className="rounded-lg bg-secondary px-2.5 py-1 text-xs font-medium text-ink-2">
                     {s}
