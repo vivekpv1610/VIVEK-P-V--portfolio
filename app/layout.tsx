@@ -1,18 +1,16 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], variable: "--font-jakarta" })
+const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains" })
 
-// <CHANGE> Updated metadata for Java backend developer portfolio
 export const metadata: Metadata = {
-  title: "Java Backend Developer | Portfolio",
+  title: "Vivek P V — Java Backend Developer",
   description:
-    "Professional portfolio of a Java backend developer specializing in Spring Boot, microservices, and cloud technologies.",
-  generator: "v0.app",
+    "Portfolio of Vivek P V, a Java backend developer in Kochi building scalable services with Spring Boot, REST APIs, and solid DevOps.",
   icons: {
     icon: [
       {
@@ -38,8 +36,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
+    <html lang="en" className={`${jakarta.variable} ${jetbrains.variable}`}>
+      <body className="font-sans antialiased">
         {children}
         <Analytics />
       </body>
