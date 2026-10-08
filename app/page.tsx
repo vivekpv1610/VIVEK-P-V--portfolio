@@ -737,6 +737,15 @@ const freelance = [
     href: "https://akhilcutz.in/",
     url: "akhilcutz.in",
   },
+  {
+    name: "Neenuz Cakez",
+    kind: "Artisanal bakery",
+    description:
+      "A warm, appetising website for an artisanal bakery — signature cakes up front, with menu, about and contact pages.",
+    image: "/freelance/neenuzcakez.jpg",
+    href: "https://neenuzcakez.com/",
+    url: "neenuzcakez.com",
+  },
 ]
 
 function Freelance() {
@@ -746,12 +755,12 @@ function Freelance() {
         <div className="reveal mb-10 md:mb-14">
           <Eyebrow>Freelance</Eyebrow>
           <h2 className="text-[clamp(1.9rem,4vw,2.75rem)] font-extrabold leading-tight tracking-[-0.03em]">
-            Websites for creative studios.
+            Websites for small businesses.
           </h2>
           <p className="mt-2 text-muted-foreground">Designed, built and launched for clients on the side.</p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {freelance.map((f, i) => (
             <a
               key={f.name}
