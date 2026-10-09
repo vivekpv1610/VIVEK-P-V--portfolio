@@ -8,14 +8,18 @@ import {
   ArrowUpRight,
   Boxes,
   Check,
+  Code2,
   Copy,
+  Database,
   GitBranch,
   Github,
+  Globe,
   Linkedin,
   Mail,
   Menu,
   Rocket,
   Server,
+  Wrench,
   X,
 } from "lucide-react"
 
@@ -43,6 +47,10 @@ type Project = {
   tintInk: string
   visual: "services" | "audit" | "monorepo" | "sdk"
   caption: string
+  // Real homepage screenshot; projects without one show an illustrated mock screen instead.
+  image?: string
+  // Square brand mark shown beside the name; falls back to the monogram.
+  logo?: string
 }
 
 const projects: Project[] = [
@@ -64,6 +72,7 @@ const projects: Project[] = [
     tintInk: "#5B3FB8",
     visual: "services",
     caption: "cloudeagle.ai",
+    logo: "/logos/cloudeagle.png",
   },
   {
     name: "nseek",
@@ -83,6 +92,8 @@ const projects: Project[] = [
     tintInk: "#1F6B3F",
     visual: "audit",
     caption: "nseek.in",
+    logo: "/logos/nseek.png",
+    image: "/work/nseek.jpg",
   },
   {
     name: "LabBase",
@@ -102,6 +113,8 @@ const projects: Project[] = [
     tintInk: "#2B4FA8",
     visual: "monorepo",
     caption: "labbase.in",
+    logo: "/logos/labbase.png",
+    image: "/work/labbase.jpg",
   },
   {
     name: "IDaaS Platform & Java SDK",
@@ -158,15 +171,16 @@ const education = [
 ]
 
 const skills = [
-  { category: "Languages & Frameworks", items: ["Java 8+", "JavaScript", "TypeScript", "Spring Boot", "Spring MVC", "Spring IoC", "Hibernate ORM"] },
-  { category: "Web & APIs", items: ["REST APIs", "Spring REST", "React", "Next.js", "Node.js", "Tailwind CSS", "HTML5", "CSS3"] },
-  { category: "Databases", items: ["MySQL", "PostgreSQL", "Oracle 10g+", "MongoDB", "Redis", "SQL", "JDBC"] },
-  { category: "Servers & DevOps", items: ["Docker", "Dokploy", "CI/CD pipelines", "Server setup", "Server administration", "Git & GitHub"] },
-  { category: "Tools", items: ["IntelliJ IDEA", "Eclipse", "Maven", "Postman", "Swagger", "MySQL Workbench", "n8n"] },
+  { category: "Languages & Frameworks", icon: Code2, items:["Java 8+", "JavaScript", "TypeScript", "Spring Boot", "Spring MVC", "Spring IoC", "Hibernate ORM"] },
+  { category: "Web & APIs", icon: Globe, items: ["REST APIs", "Spring REST", "React", "Next.js", "Node.js", "Tailwind CSS", "HTML5", "CSS3"] },
+  { category: "Databases", icon: Database, items: ["MySQL", "PostgreSQL", "Oracle 10g+", "MongoDB", "Redis", "SQL", "JDBC"] },
+  { category: "Servers & DevOps", icon: Server, items: ["Docker", "Dokploy", "CI/CD pipelines", "Server setup", "Server administration", "Git & GitHub"] },
+  { category: "Tools", icon: Wrench, items:["IntelliJ IDEA", "Eclipse", "Maven", "Postman", "Swagger", "MySQL Workbench", "n8n"] },
 ]
 
 export default function Home() {
   useReveal()
+  useSpotlight()
 
   return (
     <div className="min-h-screen">
@@ -205,6 +219,22 @@ function useReveal() {
   }, [])
 }
 
+// Feeds the pointer position to whichever .spotlight card is under it, for the soft coral glow in CSS.
+function useSpotlight() {
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return
+      const card = (e.target as Element | null)?.closest<HTMLElement>(".spotlight")
+      if (!card) return
+      const r = card.getBoundingClientRect()
+      card.style.setProperty("--mx", `${e.clientX - r.left}px`)
+      card.style.setProperty("--my", `${e.clientY - r.top}px`)
+    }
+    document.addEventListener("pointermove", onMove, { passive: true })
+    return () => document.removeEventListener("pointermove", onMove)
+  }, [])
+}
+
 function Wrap({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`mx-auto w-full max-w-[1120px] px-5 sm:px-8 ${className}`}>{children}</div>
 }
@@ -234,9 +264,35 @@ const btn =
 
 /* ---------- Header ---------- */
 
+// Highlights the nav item for the section currently in the middle of the viewport.
+function useActiveSection(ids: string[]) {
+  const [active, setActive] = useState<string | null>(null)
+
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) setActive(e.target.id)
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    )
+    for (const id of ids) {
+      const el = document.getElementById(id)
+      if (el) io.observe(el)
+    }
+    return () => io.disconnect()
+  }, [ids])
+
+  return active
+}
+
+const navIds = navItems.map((n) => n.id)
+
 function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const active = useActiveSection(navIds)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -251,6 +307,7 @@ function Header() {
         scrolled || open ? "border-b bg-background/85 backdrop-blur-md" : "border-b border-transparent"
       }`}
     >
+      <span aria-hidden className="scroll-progress absolute inset-x-0 bottom-[-1px] h-0.5 bg-accent" />
       <Wrap className="flex h-16 items-center justify-between">
         <a href="#top" className="flex items-center gap-2.5 text-[15px] font-bold tracking-tight">
           <Avatar />
@@ -262,7 +319,10 @@ function Header() {
             <a
               key={item.id}
               href={`#${item.id}`}
-              className="rounded-full px-3.5 py-2 text-sm font-medium text-ink-2 transition-colors hover:bg-secondary hover:text-foreground"
+              aria-current={active === item.id ? "location" : undefined}
+              className={`rounded-full px-3.5 py-2 text-sm font-medium transition-colors hover:bg-secondary hover:text-foreground ${
+                active === item.id ? "bg-secondary text-foreground" : "text-ink-2"
+              }`}
             >
               {item.label}
             </a>
@@ -334,7 +394,7 @@ function Avatar() {
       width={32}
       height={32}
       onError={() => setFailed(true)}
-      className="size-8 rounded-full object-cover ring-2 ring-white shadow-soft"
+      className="size-8 rounded-full object-cover ring-2 ring-card shadow-soft"
     />
   )
 }
@@ -344,13 +404,24 @@ function Avatar() {
 function Hero() {
   return (
     <section id="top">
-      <Wrap className="grid items-center gap-12 pb-16 pt-12 md:grid-cols-[1fr_auto] md:pb-28 md:pt-24">
+      <Wrap className="pb-20 pt-12 md:pb-32 md:pt-24">
         <div>
           <h1
             className="reveal max-w-[16ch] text-[clamp(2.5rem,6vw,4.25rem)] font-extrabold leading-[1.04] tracking-[-0.035em]"
             style={{ transitionDelay: "60ms" }}
           >
-            I build full-stack apps that <span className="text-accent">just work.</span>
+            I build full-stack apps that{" "}
+            <span className="relative inline-block text-accent">
+              just work.
+              <svg
+                aria-hidden
+                viewBox="0 0 200 14"
+                preserveAspectRatio="none"
+                className="scribble pointer-events-none absolute -bottom-[0.12em] left-0 h-[0.22em] w-[92%] text-accent/60"
+              >
+                <path d="M2 9 C 40 3, 80 3, 110 7 S 170 12, 198 4" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+              </svg>
+            </span>
           </h1>
           <p
             className="reveal mt-5 max-w-[54ch] text-base leading-relaxed text-ink-2 sm:mt-6 sm:text-lg"
@@ -385,8 +456,6 @@ function Hero() {
             </span>
           </div>
         </div>
-
-        <ShippedCard />
       </Wrap>
     </section>
   )
@@ -403,39 +472,6 @@ function IconLink({ href, label, children }: { href: string; label: string; chil
     >
       {children}
     </a>
-  )
-}
-
-function ShippedCard() {
-  return (
-    <div className="reveal hidden w-[340px] md:block" style={{ transitionDelay: "240ms" }}>
-      <div className="mb-3 flex items-center justify-between px-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-        <span>Shipped</span>
-        <span className="inline-flex items-center gap-1.5 normal-case tracking-normal">
-          <span className="size-1.5 rounded-full bg-ok" /> Open to work
-        </span>
-      </div>
-      <ul className="divide-y rounded-[var(--radius)] border bg-card shadow-soft">
-        {projects.map((p, i) => {
-          const live = p.tags.some((t) => t.live)
-          return (
-            <li key={p.name}>
-              <a href={`#project-${i}`} className="group flex items-center gap-3 px-5 py-4">
-                <span className="size-2 shrink-0 rounded-full" style={{ background: p.tintInk }} />
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-semibold">{p.name}</span>
-                  <span className="block truncate text-xs text-muted-foreground">{live ? "Live" : "Private"}</span>
-                </span>
-                <ArrowUpRight
-                  size={15}
-                  className="shrink-0 text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
-                />
-              </a>
-            </li>
-          )
-        })}
-      </ul>
-    </div>
   )
 }
 
@@ -470,7 +506,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
   return (
     <article
       id={`project-${index}`}
-      className="reveal group grid overflow-hidden rounded-[28px] border bg-card shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-lift lg:grid-cols-2"
+      className="reveal spotlight group relative grid overflow-hidden rounded-[28px] border bg-card shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-lift lg:grid-cols-2"
     >
       {/* Text side */}
       <div className={`flex flex-col p-6 sm:p-10 lg:p-12 ${flip ? "lg:order-2" : ""}`}>
@@ -488,9 +524,26 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
           </span>
         </div>
 
-        <h3 className="mt-4 text-[clamp(1.6rem,3vw,2.25rem)] font-extrabold leading-tight tracking-[-0.03em] sm:mt-6">
-          {p.name}
-        </h3>
+        <div className="mt-4 flex items-center gap-3.5 sm:mt-6">
+          {p.logo ? (
+            <img
+              src={p.logo}
+              alt=""
+              width={44}
+              height={44}
+              className="size-11 shrink-0 rounded-xl border shadow-soft"
+            />
+          ) : (
+            <span
+              aria-hidden
+              className="grid size-11 shrink-0 place-items-center rounded-xl border text-sm font-extrabold shadow-soft"
+              style={{ background: p.tint, color: p.tintInk }}
+            >
+              {p.monogram}
+            </span>
+          )}
+          <h3 className="text-[clamp(1.6rem,3vw,2.25rem)] font-extrabold leading-tight tracking-[-0.03em]">{p.name}</h3>
+        </div>
         <p className="mt-1 text-[15px] font-medium" style={{ color: p.tintInk }}>
           {p.tagline}
         </p>
@@ -547,16 +600,27 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
             flip ? "left-0 sm:-left-2" : "right-0 sm:-right-2"
           }`}
         >
-          <Window title={p.caption} ink={p.tintInk} flip={flip}>
-            <Screen project={p} />
-          </Window>
+          <div className="parallax h-full">
+            <Window title={p.caption} ink={p.tintInk} flip={flip}>
+              {p.image ? (
+                <img
+                  src={p.image}
+                  alt={`${p.name} website homepage`}
+                  loading="lazy"
+                  className="block size-full object-cover object-top"
+                />
+              ) : (
+                <Screen project={p} />
+              )}
+            </Window>
+          </div>
         </div>
       </div>
     </article>
   )
 }
 
-/* ---------- Mock app windows (illustrations, not screenshots) ---------- */
+/* ---------- App windows (screenshots, or illustrated mocks for the rest) ---------- */
 
 function Window({ title, ink, flip, children }: { title: string; ink: string; flip: boolean; children: ReactNode }) {
   return (
@@ -894,7 +958,7 @@ function Infra() {
 
         <div className="grid gap-5 lg:grid-cols-[1fr_1.15fr]">
           <div className="reveal flex flex-col overflow-hidden rounded-[28px] border bg-card shadow-soft">
-            <div className="flex items-center gap-3 border-b bg-[#fbfaf7] px-5 py-3">
+            <div className="flex items-center gap-3 border-b bg-background px-5 py-3">
               <div className="flex gap-1.5">
                 {["#ff6159", "#ffbd2e", "#28c941"].map((c) => (
                   <span key={c} className="size-2.5 rounded-full" style={{ background: c }} />
@@ -943,7 +1007,7 @@ function Infra() {
             {infraSkills.map(({ icon: Icon, title, text }, i) => (
               <div
                 key={title}
-                className="reveal group rounded-[20px] border bg-card p-4 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift sm:rounded-[24px] sm:p-6"
+                className="reveal spotlight group relative overflow-hidden rounded-[20px] border bg-card p-4 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift sm:rounded-[24px] sm:p-6"
                 style={{ transitionDelay: `${i * 60}ms` }}
               >
                 <span className="grid size-9 place-items-center rounded-xl bg-accent-soft text-accent transition-transform duration-300 group-hover:rotate-[-6deg] group-hover:scale-110 sm:size-11 sm:rounded-2xl">
@@ -1038,19 +1102,57 @@ function Toolbox() {
           </p>
         </div>
 
-        <div className="reveal grid gap-px overflow-hidden rounded-[var(--radius)] border bg-border shadow-soft sm:grid-cols-2 lg:grid-cols-5">
-          {skills.map((group) => (
-            <div key={group.category} className="bg-card p-5 sm:p-6">
-              <h3 className="text-sm font-bold">{group.category}</h3>
-              <div className="mt-3 flex flex-wrap gap-1.5 sm:mt-4">
-                {group.items.map((s) => (
-                  <span key={s} className="rounded-lg bg-secondary px-2.5 py-1 text-xs font-medium text-ink-2">
-                    {s}
+        {/* Bento: the core stack gets the big tile, everything else fills around it */}
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+          {skills.map(({ category, icon: Icon, items }, i) => {
+            const core = i === 0
+            return (
+              <div
+                key={category}
+                className={`reveal spotlight group relative overflow-hidden rounded-[24px] border bg-card p-5 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift sm:p-6 ${
+                  core ? "sm:col-span-2 lg:row-span-2 lg:p-8" : ""
+                }`}
+                style={{ transitionDelay: `${i * 60}ms` }}
+              >
+                {core && (
+                  <div
+                    className="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full opacity-60 blur-3xl"
+                    style={{ background: "var(--accent-soft)" }}
+                  />
+                )}
+                <div className="relative flex items-center gap-3">
+                  <span
+                    className={`grid shrink-0 place-items-center rounded-xl bg-accent-soft text-accent transition-transform duration-300 group-hover:rotate-[-6deg] group-hover:scale-110 ${
+                      core ? "size-11 rounded-2xl" : "size-9"
+                    }`}
+                  >
+                    <Icon size={core ? 20 : 17} />
                   </span>
-                ))}
+                  <h3 className={core ? "text-lg font-bold tracking-tight" : "text-sm font-bold"}>{category}</h3>
+                  {core && (
+                    <span className="ml-auto rounded-full bg-ok-soft px-2.5 py-1 text-[11px] font-bold text-ok">Core</span>
+                  )}
+                </div>
+                {core && (
+                  <p className="relative mt-4 max-w-[40ch] leading-relaxed text-ink-2">
+                    Where most of my day goes: Spring Boot services, clean REST APIs and well-tuned persistence.
+                  </p>
+                )}
+                <div className={`relative flex flex-wrap gap-1.5 ${core ? "mt-6 gap-2" : "mt-4"}`}>
+                  {items.map((s) => (
+                    <span
+                      key={s}
+                      className={`rounded-lg bg-secondary font-medium text-ink-2 ${
+                        core ? "px-3 py-1.5 text-sm" : "px-2.5 py-1 text-xs"
+                      }`}
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </Wrap>
     </section>

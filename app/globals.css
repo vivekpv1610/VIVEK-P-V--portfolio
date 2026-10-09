@@ -138,9 +138,50 @@
   }
 }
 
+/* Native scroll-driven effects; browsers without support simply skip them */
+.scroll-progress {
+  display: none;
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    display: block;
+    transform-origin: 0 50%;
+    animation: progress linear both;
+    animation-timeline: scroll(root);
+  }
+  .parallax {
+    animation: parallax linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 45%;
+  }
+}
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes parallax {
+  from {
+    transform: translateY(40px);
+  }
+  to {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .scroll-progress,
+  .parallax {
+    animation: none;
+  }
+  .scroll-progress {
+    display: none;
   }
   .reveal {
     opacity: 1;
@@ -149,5 +190,40 @@
   }
   .float {
     animation: none;
+  }
+}
+
+/* Soft coral glow that follows the mouse across cards (position fed by useSpotlight) */
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 92, 56, 0.07), transparent 45%);
+}
+.spotlight:hover::after {
+  opacity: 1;
+}
+
+/* Hand-drawn underline that sketches itself in under the hero accent */
+.scribble path {
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
+  animation: scribble 0.9s 0.7s cubic-bezier(0.6, 0, 0.2, 1) forwards;
+}
+@keyframes scribble {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scribble path {
+    animation: none;
+    stroke-dashoffset: 0;
   }
 }
