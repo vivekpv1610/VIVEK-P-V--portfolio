@@ -55,6 +55,27 @@ type Project = {
 
 const projects: Project[] = [
   {
+    name: "Storsum",
+    monogram: "St",
+    tagline: "Every free gigabyte you own, in one drive.",
+    tags: [{ label: "Live", live: true }, { label: "Full-stack" }, { label: "Own product" }],
+    description:
+      "My own product. It adds up the free space of your Google Drive, Box, pCloud, Koofr and S3 accounts into one encrypted drive, on the web, Windows, Linux and Android.",
+    did: [
+      { lead: "Uploads routed across accounts", rest: ", streamed to one with room and encrypted on the way by default." },
+      { lead: "Node.js and Express backend", rest: " with Prisma, MySQL and the Google Drive, Box, pCloud and S3 APIs." },
+      { lead: "Apps for web, Android, Windows and Linux", rest: ", in React on the web and Kotlin Multiplatform with Compose for the rest." },
+    ],
+    stack: ["React", "TypeScript", "Node.js", "Express", "Prisma", "MySQL", "Kotlin Multiplatform", "Docker"],
+    link: { href: "https://storsum.in/", label: "storsum.in" },
+    tint: "#FDEDE6",
+    tintInk: "#C43A18",
+    visual: "services",
+    caption: "storsum.in",
+    logo: "/logos/storsum.png",
+    image: "/work/storsum.jpg",
+  },
+  {
     name: "CloudEagle.ai",
     monogram: "CE",
     tagline: "SaaS spend, finally under control.",
@@ -98,16 +119,16 @@ const projects: Project[] = [
   {
     name: "LabBase",
     monogram: "LB",
-    tagline: "Many apps, one monorepo.",
-    tags: [{ label: "Live", live: true }, { label: "Full-stack" }, { label: "Enterprise" }],
+    tagline: "Many apps, one pipeline.",
+    tags: [{ label: "Live", live: true }, { label: "DevOps" }, { label: "Enterprise" }],
     description:
-      "A scalable multi-application SaaS platform built on an Nx monorepo architecture, with shared libraries across frontends and services.",
+      "A multi-application SaaS platform built on an Nx monorepo. I handled its DevOps: the containers, the CI/CD pipelines and the servers it runs on.",
     did: [
-      { lead: "Nx monorepo architecture", rest: " for multiple apps sharing code." },
-      { lead: "Responsive UIs", rest: " in React, Vue and Tailwind CSS." },
-      { lead: "RESTful backend services", rest: " in Node.js and Express with OpenTelemetry observability." },
+      { lead: "CI/CD pipelines", rest: " that build and deploy the monorepo's apps." },
+      { lead: "Docker containers", rest: " for the apps and services, so they run the same locally and in production." },
+      { lead: "Server setup and management", rest: " for the servers LabBase runs on." },
     ],
-    stack: ["React", "Vue", "Tailwind CSS", "Node.js", "Express", "MongoDB", "Nx", "OpenTelemetry"],
+    stack: ["Docker", "CI/CD", "Server administration", "Nx monorepo"],
     link: { href: "https://labbase.in/", label: "labbase.in" },
     tint: "#E9EFFB",
     tintInk: "#2B4FA8",
@@ -427,8 +448,8 @@ function Hero() {
             className="reveal mt-5 max-w-[54ch] text-base leading-relaxed text-ink-2 sm:mt-6 sm:text-lg"
             style={{ transitionDelay: "120ms" }}
           >
-            Java full stack developer. <strong className="text-foreground">Four products shipped</strong> across SaaS,
-            SEO and identity
+            Java full stack developer. <strong className="text-foreground">Five products shipped</strong> across SaaS,
+            SEO, identity and cloud storage
             <span className="hidden sm:inline">
               . I care about the parts users never see — the API that answers fast, the auth that just holds, and{" "}
               <strong className="text-foreground">the servers it all runs on</strong>, deployed with Docker, Dokploy
@@ -483,9 +504,9 @@ function Work() {
       <Wrap>
         <div className="reveal mb-10 md:mb-14">
           <h2 className="text-[clamp(1.9rem,4vw,2.75rem)] font-extrabold leading-tight tracking-[-0.03em]">
-            Four products, four different problems.
+            Five products, five different problems.
           </h2>
-          <p className="mt-2 text-muted-foreground">Three live today, one under NDA.</p>
+          <p className="mt-2 text-muted-foreground">Four live today, one under NDA.</p>
         </div>
 
         <div className="space-y-6">
