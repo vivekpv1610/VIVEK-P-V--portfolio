@@ -7,13 +7,14 @@ import {
   ArrowRight,
   ArrowUpRight,
   Boxes,
+  Briefcase,
   Check,
   Code2,
   Copy,
   Database,
   GitBranch,
-  Github,
   Globe,
+  GraduationCap,
   Linkedin,
   Mail,
   Menu,
@@ -24,13 +25,12 @@ import {
 } from "lucide-react"
 
 const EMAIL = "vivekpv1610@gmail.com"
-const GITHUB = "https://github.com/VIVEK-P-V"
 const LINKEDIN = "https://in.linkedin.com/in/pvvivek"
 
 const navItems = [
   { id: "work", label: "Work" },
-  { id: "devops", label: "DevOps" },
   { id: "experience", label: "Experience" },
+  { id: "devops", label: "DevOps" },
   { id: "contact", label: "Contact" },
 ]
 
@@ -58,15 +58,16 @@ const projects: Project[] = [
     name: "Storsum",
     monogram: "St",
     tagline: "Every free gigabyte you own, in one drive.",
-    tags: [{ label: "Live", live: true }, { label: "Full-stack" }, { label: "Own product" }],
+    tags: [{ label: "Live", live: true }, { label: "Full-stack" }, { label: "DevOps" }, { label: "Own product" }],
     description:
       "My own product. It adds up the free space of your Google Drive, Box, pCloud, Koofr and S3 accounts into one encrypted drive, on the web, Windows, Linux and Android.",
     did: [
       { lead: "Uploads routed across accounts", rest: ", streamed to one with room and encrypted on the way by default." },
       { lead: "Node.js and Express backend", rest: " with Prisma, MySQL and the Google Drive, Box, pCloud and S3 APIs." },
       { lead: "Apps for web, Android, Windows and Linux", rest: ", in React on the web and Kotlin Multiplatform with Compose for the rest." },
+      { lead: "DevOps", rest: ": Docker containers, CI/CD pipelines and the server it runs on." },
     ],
-    stack: ["React", "TypeScript", "Node.js", "Express", "Prisma", "MySQL", "Kotlin Multiplatform", "Docker"],
+    stack: ["React", "TypeScript", "Node.js", "Express", "Prisma", "MySQL", "Kotlin Multiplatform", "Docker", "CI/CD"],
     link: { href: "https://storsum.in/", label: "storsum.in" },
     tint: "#FDEDE6",
     tintInk: "#C43A18",
@@ -99,15 +100,16 @@ const projects: Project[] = [
     name: "nseek",
     monogram: "ns",
     tagline: "Local SEO audits on autopilot.",
-    tags: [{ label: "Live", live: true }, { label: "Full-stack" }, { label: "Web" }],
+    tags: [{ label: "Live", live: true }, { label: "Full-stack" }, { label: "DevOps" }, { label: "Web" }],
     description:
       "A comprehensive local SEO application that helps businesses automate NAP (name, address, phone) consistency audits across directories.",
     did: [
       { lead: "Scalable web scraper", rest: " using Playwright to drive headless Chromium and extract structured data." },
       { lead: "Real-time analytics dashboard", rest: " built with React, Radix UI and Tailwind CSS." },
       { lead: "Automated NAP consistency audits", rest: " backed by PostgreSQL." },
+      { lead: "DevOps", rest: ": Docker containers, CI/CD pipelines and the server it runs on." },
     ],
-    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Playwright"],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Playwright", "Docker", "CI/CD"],
     link: { href: "https://nseek.in/", label: "nseek.in" },
     tint: "#E7F4EC",
     tintInk: "#1F6B3F",
@@ -141,15 +143,16 @@ const projects: Project[] = [
     name: "IDaaS Platform & Java SDK",
     monogram: "ID",
     tagline: "Identity as a service, with a Java SDK.",
-    tags: [{ label: "Private" }, { label: "Backend" }, { label: "SDK" }],
+    tags: [{ label: "Private" }, { label: "Backend" }, { label: "DevOps" }, { label: "SDK" }],
     description:
       "A Node.js monorepo with Fastify, Drizzle ORM and Redis handling scalable user authentication, tenant administration, and subscription management.",
     did: [
       { lead: "Production-ready Java SDK", rest: " so client apps integrate in a few lines." },
       { lead: "Secure authentication & authorization", rest: " in the SDK using nimbus-jose-jwt." },
       { lead: "Admin API client & webhook handler", rest: " built with Java HttpClient and Jackson." },
+      { lead: "DevOps", rest: ": Docker containers, CI/CD pipelines and the server it runs on." },
     ],
-    stack: ["Java 11+", "Maven", "Node.js", "Fastify", "Drizzle ORM", "Redis", "JWT"],
+    stack: ["Java 11+", "Maven", "Node.js", "Fastify", "Drizzle ORM", "Redis", "JWT", "Docker", "CI/CD"],
     tint: "#FDECEA",
     tintInk: "#A8362A",
     visual: "sdk",
@@ -160,7 +163,7 @@ const projects: Project[] = [
 const experience = [
   {
     period: "Oct 2024 — Present",
-    role: "Java Backend Developer",
+    role: "Software Developer",
     company: "Inloops Innovations",
     current: true,
     summary: "Spring Boot services, server setup & management, and Docker/Dokploy CI/CD.",
@@ -209,9 +212,9 @@ export default function Home() {
       <main>
         <Hero />
         <Work />
+        <Experience />
         <Freelance />
         <Infra />
-        <Experience />
         <Toolbox />
         <Contact />
       </main>
@@ -431,7 +434,7 @@ function Hero() {
             className="reveal max-w-[16ch] text-[clamp(2.5rem,6vw,4.25rem)] font-extrabold leading-[1.04] tracking-[-0.035em]"
             style={{ transitionDelay: "60ms" }}
           >
-            I build full-stack apps that{" "}
+            I build <span className="whitespace-nowrap">full-stack</span> apps that{" "}
             <span className="relative inline-block text-accent">
               just work.
               <svg
@@ -468,9 +471,6 @@ function Hero() {
               Say hello
             </a>
             <span className="hidden sm:flex">
-              <IconLink href={GITHUB} label="GitHub">
-                <Github size={18} />
-              </IconLink>
               <IconLink href={LINKEDIN} label="LinkedIn">
                 <Linkedin size={18} />
               </IconLink>
@@ -519,10 +519,13 @@ function Work() {
   )
 }
 
+const smallLabel = "text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground"
+
+// Every card has the same layout: text on the left, visual on the right.
 function ProjectCard({ project: p, index }: { project: Project; index: number }) {
-  const flip = index % 2 === 1
-  const kind = p.tags.filter((t) => !t.live).map((t) => t.label).join(" · ")
   const live = p.tags.some((t) => t.live)
+  // The status chip already says Live/Private, so skip that tag here.
+  const kinds = p.tags.filter((t) => !t.live && t.label !== "Private")
 
   return (
     <article
@@ -530,55 +533,49 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
       className="reveal spotlight group relative grid overflow-hidden rounded-[28px] border bg-card shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-lift lg:grid-cols-2"
     >
       {/* Text side */}
-      <div className={`flex flex-col p-6 sm:p-10 lg:p-12 ${flip ? "lg:order-2" : ""}`}>
-        <div className="flex items-center gap-3 text-xs font-semibold">
-          <span className="font-mono text-muted-foreground">{String(index + 1).padStart(2, "0")}</span>
-          <span className="h-px w-6 bg-border" />
-          <span style={{ color: p.tintInk }}>{kind}</span>
+      <div className="flex flex-col p-6 sm:p-10">
+        <div className="flex items-start gap-4">
+          {p.logo ? (
+            <img src={p.logo} alt="" width={56} height={56} className="size-14 shrink-0 rounded-2xl border shadow-soft" />
+          ) : (
+            <span
+              aria-hidden
+              className="grid size-14 shrink-0 place-items-center rounded-2xl border text-base font-extrabold shadow-soft"
+              style={{ background: p.tint, color: p.tintInk }}
+            >
+              {p.monogram}
+            </span>
+          )}
+          <div className="min-w-0">
+            <p className="font-mono text-xs text-muted-foreground">{String(index + 1).padStart(2, "0")}</p>
+            <h3 className="text-[clamp(1.5rem,2.6vw,1.9rem)] font-extrabold leading-tight tracking-[-0.03em]">{p.name}</h3>
+            <p className="mt-0.5 text-[15px] text-ink-2">{p.tagline}</p>
+          </div>
+        </div>
+
+        <div className="mt-5 flex flex-wrap gap-2">
           <span
-            className={`ml-auto inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 ${
+            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
               live ? "bg-ok-soft text-ok" : "bg-secondary text-muted-foreground"
             }`}
           >
             <span className={`size-1.5 rounded-full ${live ? "bg-ok" : "bg-muted-foreground"}`} />
             {live ? "Live" : "Private"}
           </span>
-        </div>
-
-        <div className="mt-4 flex items-center gap-3.5 sm:mt-6">
-          {p.logo ? (
-            <img
-              src={p.logo}
-              alt=""
-              width={44}
-              height={44}
-              className="size-11 shrink-0 rounded-xl border shadow-soft"
-            />
-          ) : (
-            <span
-              aria-hidden
-              className="grid size-11 shrink-0 place-items-center rounded-xl border text-sm font-extrabold shadow-soft"
-              style={{ background: p.tint, color: p.tintInk }}
-            >
-              {p.monogram}
+          {kinds.map((t) => (
+            <span key={t.label} className="rounded-full px-3 py-1 text-xs font-semibold" style={{ background: p.tint, color: p.tintInk }}>
+              {t.label}
             </span>
-          )}
-          <h3 className="text-[clamp(1.6rem,3vw,2.25rem)] font-extrabold leading-tight tracking-[-0.03em]">{p.name}</h3>
+          ))}
         </div>
-        <p className="mt-1 text-[15px] font-medium" style={{ color: p.tintInk }}>
-          {p.tagline}
-        </p>
-        <p className="mt-4 hidden leading-relaxed text-ink-2 sm:block">{p.description}</p>
 
-        <ul className="mt-5 space-y-3 border-t pt-5 sm:mt-6 sm:pt-6">
+        <p className="mt-5 hidden leading-relaxed text-ink-2 sm:block">{p.description}</p>
+
+        <p className={`mt-6 ${smallLabel}`}>What I did</p>
+        <ul className="mt-3 space-y-2.5">
           {p.did.map((d) => (
             <li key={d.lead} className="flex gap-3 text-[15px] leading-snug text-ink-2">
-              <span
-                className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full"
-                style={{ background: p.tint, color: p.tintInk }}
-              >
-                <Check size={11} strokeWidth={3} />
-              </span>
+              <span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-accent" />
               <span>
                 <strong className="font-semibold text-foreground">{d.lead}</strong>
                 {d.rest}
@@ -587,26 +584,34 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
           ))}
         </ul>
 
-        <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-8">
-          <p className="text-[13px] text-muted-foreground">{p.stack.join(" · ")}</p>
-          {p.link && (
+        <p className={`mt-6 ${smallLabel}`}>Stack</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {p.stack.map((s) => (
+            <span key={s} className="rounded-lg border bg-background px-2.5 py-1 text-[13px] text-ink-2">
+              {s}
+            </span>
+          ))}
+        </div>
+
+        {p.link && (
+          <div className="mt-7">
             <a
               href={p.link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/link inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-background transition-transform hover:-translate-y-0.5"
+              className="group/link inline-flex items-center gap-1.5 rounded-xl border border-line-strong bg-card px-4 py-2 text-sm font-semibold transition-colors hover:border-foreground"
             >
-              Visit
+              {p.link.label}
               <ArrowUpRight size={15} className="transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
             </a>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Visual side */}
       <div
-        className={`relative order-first h-[210px] overflow-hidden sm:h-auto sm:min-h-[380px] ${flip ? "lg:order-1" : "lg:order-none"}`}
-        style={{ background: `radial-gradient(circle at ${flip ? "85%" : "15%"} 0%, rgba(255,255,255,0.7), transparent 55%), ${p.tint}` }}
+        className="relative order-first h-[210px] overflow-hidden sm:h-auto sm:min-h-[380px] lg:order-none"
+        style={{ background: `radial-gradient(circle at 15% 0%, rgba(255,255,255,0.7), transparent 55%), ${p.tint}` }}
       >
         <div
           className="pointer-events-none absolute inset-0 opacity-50"
@@ -616,13 +621,9 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
             maskImage: "radial-gradient(ellipse at 30% 20%, black, transparent 70%)",
           }}
         />
-        <div
-          className={`absolute bottom-0 top-6 w-[92%] transition-transform duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:-translate-y-2 sm:top-14 ${
-            flip ? "left-0 sm:-left-2" : "right-0 sm:-right-2"
-          }`}
-        >
+        <div className="absolute bottom-0 right-0 top-6 w-[92%] transition-transform duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:-translate-y-2 sm:-right-2 sm:top-14">
           <div className="parallax h-full">
-            <Window title={p.caption} ink={p.tintInk} flip={flip}>
+            <Window title={p.caption} ink={p.tintInk}>
               {p.image ? (
                 <img
                   src={p.image}
@@ -643,13 +644,10 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
 
 /* ---------- App windows (screenshots, or illustrated mocks for the rest) ---------- */
 
-function Window({ title, ink, flip, children }: { title: string; ink: string; flip: boolean; children: ReactNode }) {
+// Browser window that bleeds off the card's right edge.
+function Window({ title, ink, children }: { title: string; ink: string; children: ReactNode }) {
   return (
-    <div
-      className={`h-full overflow-hidden border bg-white shadow-[0_30px_60px_-20px_rgba(23,23,26,0.25)] ${
-        flip ? "rounded-tr-2xl border-l-0" : "rounded-tl-2xl border-r-0"
-      }`}
-    >
+    <div className="h-full overflow-hidden rounded-tl-2xl border border-r-0 bg-white shadow-[0_30px_60px_-20px_rgba(23,23,26,0.25)]">
       <div className="flex items-center gap-3 border-b bg-[#fbfaf7] px-4 py-2.5">
         <div className="flex gap-1.5">
           {["#ff6159", "#ffbd2e", "#28c941"].map((c) => (
@@ -885,7 +883,7 @@ const freelance = [
 
 function Freelance() {
   return (
-    <section id="freelance" className="pb-24 md:pb-32">
+    <section id="freelance" className="py-24 md:py-32">
       <Wrap>
         <div className="reveal mb-10 md:mb-14">
           <Eyebrow>Freelance</Eyebrow>
@@ -1058,52 +1056,85 @@ function Experience() {
           </h2>
         </div>
 
-        <ol className="border-t">
-          {experience.map((job) => (
-            <li
-              key={job.role}
-              className="reveal grid gap-1.5 border-b py-7 md:grid-cols-[200px_1fr] md:gap-8 md:py-9"
-            >
-              <p className="flex items-center gap-2 self-start pt-0.5 text-sm font-medium text-muted-foreground">
-                {job.period}
-                {job.current && (
-                  <span className="rounded-full bg-ok-soft px-2 py-0.5 text-[11px] font-bold text-ok md:hidden">Now</span>
-                )}
-              </p>
-              <div>
-                <h3 className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-lg font-bold tracking-tight">
-                  {job.role}
-                  <span className="hidden font-medium text-muted-foreground md:inline">· {job.company}</span>
-                  {job.current && (
-                    <span className="hidden rounded-full bg-ok-soft px-2 py-0.5 text-[11px] font-bold text-ok md:inline">
-                      Now
-                    </span>
-                  )}
-                </h3>
-                <p className="text-sm text-muted-foreground md:hidden">{job.company}</p>
-                <p className="mt-3 font-semibold text-foreground md:mt-2">{job.summary}</p>
-                <p className="mt-2 hidden max-w-[68ch] leading-relaxed text-ink-2 md:block">{job.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+        <EducationCard />
 
-        <div id="education" className="reveal mt-16 md:mt-20">
-          <Eyebrow>Education</Eyebrow>
-          <ol className="mt-6 border-t">
-            {education.map((e) => (
-              <li key={e.degree} className="grid gap-1.5 border-b py-6 md:grid-cols-[200px_1fr] md:gap-8">
-                <p className="pt-0.5 text-sm font-medium text-muted-foreground">{e.period}</p>
-                <div>
-                  <h3 className="text-lg font-bold tracking-tight">{e.degree}</h3>
-                  <p className="text-sm text-muted-foreground md:text-base">{e.school}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+        <div className="reveal mb-6 mt-12 flex items-center gap-3 md:mt-14">
+          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
+            <Briefcase size={18} />
+          </span>
+          <h3 className="text-lg font-extrabold tracking-tight">Work experience</h3>
         </div>
+        <JobTimeline />
       </Wrap>
     </section>
+  )
+}
+
+// Jobs on a vertical line: one dot per role (the current one highlighted), details in a card beside it.
+function JobTimeline() {
+  return (
+    <ol>
+      {experience.map((job, i) => (
+        <li
+          key={job.role}
+          className="reveal relative pb-6 pl-12 last:pb-0 sm:pl-14"
+          style={{ transitionDelay: `${i * 80}ms` }}
+        >
+          {/* Line segment from this dot down to the next one */}
+          {i < experience.length - 1 && (
+            <span aria-hidden className="absolute -bottom-6 left-[15.5px] top-14 w-px bg-line-strong" />
+          )}
+          <span
+            aria-hidden
+            className={`absolute left-0 top-6 grid size-8 place-items-center rounded-full ring-4 ring-card ${
+              job.current ? "bg-accent text-white" : "border bg-card text-muted-foreground"
+            }`}
+          >
+            {job.current && <span className="absolute inset-0 animate-ping rounded-full bg-accent opacity-25" />}
+            <Briefcase size={14} className="relative" />
+          </span>
+
+          <article className="rounded-[24px] border bg-background p-6 sm:p-7">
+            <p className="flex flex-wrap items-center gap-2 text-sm font-medium text-muted-foreground">
+              {job.period}
+              {job.current && <span className="rounded-full bg-ok-soft px-2 py-0.5 text-[11px] font-bold text-ok">Now</span>}
+            </p>
+            <h3 className="mt-2 text-xl font-extrabold tracking-tight">{job.role}</h3>
+            <p className="text-sm text-muted-foreground">{job.company}</p>
+            <p className="mt-4 border-t pt-4 font-semibold text-foreground">{job.summary}</p>
+            <p className="mt-2 hidden leading-relaxed text-ink-2 sm:block">{job.description}</p>
+          </article>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+function EducationCard() {
+  return (
+    <aside id="education" className="reveal rounded-[24px] border bg-background p-6 sm:p-7">
+      <div className="flex items-center gap-3">
+        <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
+          <GraduationCap size={18} />
+        </span>
+        <h3 className="text-lg font-extrabold tracking-tight">Education</h3>
+      </div>
+
+      <ol className="mt-6 space-y-5 border-t pt-6">
+        {education.map((e, i) => (
+          <li key={e.degree} className="relative pl-6">
+            {/* Dot, plus a short line linking it to the next degree */}
+            <span className={`absolute left-0 top-1.5 size-2.5 rounded-full ${i === 0 ? "bg-accent" : "bg-line-strong"}`} />
+            {i < education.length - 1 && (
+              <span aria-hidden className="absolute -bottom-[26px] left-[4.5px] top-5 w-px bg-border" />
+            )}
+            <p className="text-sm font-medium text-muted-foreground">{e.period}</p>
+            <p className="mt-0.5 font-bold leading-snug tracking-tight">{e.degree}</p>
+            <p className="text-sm text-muted-foreground">{e.school}</p>
+          </li>
+        ))}
+      </ol>
+    </aside>
   )
 }
 
@@ -1227,9 +1258,6 @@ function Contact() {
                 {copied ? <Check size={16} className="text-[#5BD18B]" /> : <Copy size={16} />}
               </button>
             </div>
-            <a href={GITHUB} target="_blank" rel="noopener noreferrer" className={dark}>
-              GitHub <ArrowUpRight size={16} />
-            </a>
             <a href="/resume.pdf" download="VIVEK_PV_Resume.pdf" className={dark}>
               Resume <ArrowRight size={16} />
             </a>
