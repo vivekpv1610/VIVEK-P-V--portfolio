@@ -76,26 +76,27 @@ const projects: Project[] = [
     logo: "/logos/storsum.png",
     image: "/work/storsum.jpg",
   },
-  {
-    name: "CloudEagle.ai",
-    monogram: "CE",
-    tagline: "SaaS spend, finally under control.",
-    tags: [{ label: "Live", live: true }, { label: "Backend" }, { label: "B2B SaaS" }],
-    description:
-      "A SaaS management and procurement platform that helps businesses discover, manage, and optimize their software applications and spending.",
-    did: [
-      { lead: "Scalable backend microservices", rest: " in Java and Spring Boot." },
-      { lead: "Optimized complex database queries", rest: " on MySQL for faster, leaner reads." },
-      { lead: "Integrated third-party SaaS APIs", rest: " for seamless data synchronization." },
-    ],
-    stack: ["Java", "Spring Boot", "MySQL", "REST APIs", "Microservices"],
-    link: { href: "https://www.cloudeagle.ai/", label: "cloudeagle.ai" },
-    tint: "#F0ECFB",
-    tintInk: "#5B3FB8",
-    visual: "services",
-    caption: "cloudeagle.ai",
-    logo: "/logos/cloudeagle.png",
-  },
+  // CloudEagle.ai hidden for now; uncomment to show it again.
+  // {
+  //   name: "CloudEagle.ai",
+  //   monogram: "CE",
+  //   tagline: "SaaS spend, finally under control.",
+  //   tags: [{ label: "Live", live: true }, { label: "Backend" }, { label: "B2B SaaS" }],
+  //   description:
+  //     "A SaaS management and procurement platform that helps businesses discover, manage, and optimize their software applications and spending.",
+  //   did: [
+  //     { lead: "Scalable backend microservices", rest: " in Java and Spring Boot." },
+  //     { lead: "Optimized complex database queries", rest: " on MySQL for faster, leaner reads." },
+  //     { lead: "Integrated third-party SaaS APIs", rest: " for seamless data synchronization." },
+  //   ],
+  //   stack: ["Java", "Spring Boot", "MySQL", "REST APIs", "Microservices"],
+  //   link: { href: "https://www.cloudeagle.ai/", label: "cloudeagle.ai" },
+  //   tint: "#F0ECFB",
+  //   tintInk: "#5B3FB8",
+  //   visual: "services",
+  //   caption: "cloudeagle.ai",
+  //   logo: "/logos/cloudeagle.png",
+  // },
   {
     name: "nseek",
     monogram: "ns",
