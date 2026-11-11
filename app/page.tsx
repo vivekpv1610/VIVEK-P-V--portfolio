@@ -76,27 +76,24 @@ const projects: Project[] = [
     logo: "/logos/storsum.png",
     image: "/work/storsum.jpg",
   },
-  // CloudEagle.ai hidden for now; uncomment to show it again.
-  // {
-  //   name: "CloudEagle.ai",
-  //   monogram: "CE",
-  //   tagline: "SaaS spend, finally under control.",
-  //   tags: [{ label: "Live", live: true }, { label: "Backend" }, { label: "B2B SaaS" }],
-  //   description:
-  //     "A SaaS management and procurement platform that helps businesses discover, manage, and optimize their software applications and spending.",
-  //   did: [
-  //     { lead: "Scalable backend microservices", rest: " in Java and Spring Boot." },
-  //     { lead: "Optimized complex database queries", rest: " on MySQL for faster, leaner reads." },
-  //     { lead: "Integrated third-party SaaS APIs", rest: " for seamless data synchronization." },
-  //   ],
-  //   stack: ["Java", "Spring Boot", "MySQL", "REST APIs", "Microservices"],
-  //   link: { href: "https://www.cloudeagle.ai/", label: "cloudeagle.ai" },
-  //   tint: "#F0ECFB",
-  //   tintInk: "#5B3FB8",
-  //   visual: "services",
-  //   caption: "cloudeagle.ai",
-  //   logo: "/logos/cloudeagle.png",
-  // },
+  {
+    name: "SaaS Management Platform",
+    monogram: "SM",
+    tagline: "SaaS spend, finally under control.",
+    tags: [{ label: "Confidential" }, { label: "Backend" }, { label: "B2B SaaS" }],
+    description:
+      "A SaaS management and procurement platform that helps businesses discover, manage, and optimize their software applications and spending.",
+    did: [
+      { lead: "Scalable backend microservices", rest: " in Java and Spring Boot." },
+      { lead: "Optimized complex database queries", rest: " on MySQL for faster, leaner reads." },
+      { lead: "Integrated third-party SaaS APIs", rest: " for seamless data synchronization." },
+    ],
+    stack: ["Java", "Spring Boot", "MySQL", "REST APIs", "Microservices"],
+    tint: "#F0ECFB",
+    tintInk: "#5B3FB8",
+    visual: "services",
+    caption: "dashboard",
+  },
   {
     name: "nseek",
     monogram: "ns",
@@ -525,8 +522,9 @@ const smallLabel = "text-[11px] font-bold uppercase tracking-[0.12em] text-muted
 // Every card has the same layout: text on the left, visual on the right.
 function ProjectCard({ project: p, index }: { project: Project; index: number }) {
   const live = p.tags.some((t) => t.live)
-  // The status chip already says Live/Private, so skip that tag here.
-  const kinds = p.tags.filter((t) => !t.live && t.label !== "Private")
+  const status = live ? "Live" : p.tags.some((t) => t.label === "Confidential") ? "Confidential" : "Private"
+  // The status chip already says Live/Private/Confidential, so skip that tag here.
+  const kinds = p.tags.filter((t) => !t.live && t.label !== "Private" && t.label !== "Confidential")
 
   return (
     <article
@@ -561,7 +559,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
             }`}
           >
             <span className={`size-1.5 rounded-full ${live ? "bg-ok" : "bg-muted-foreground"}`} />
-            {live ? "Live" : "Private"}
+            {status}
           </span>
           {kinds.map((t) => (
             <span key={t.label} className="rounded-full px-3 py-1 text-xs font-semibold" style={{ background: p.tint, color: p.tintInk }}>
